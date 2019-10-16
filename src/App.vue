@@ -20,5 +20,7 @@ html{
 
 #app {
   margin-top: 60px;
+  background-color: $color3;
+  color: #fff;
 }
 </style>
