@@ -9,8 +9,6 @@ export default {
   name: 'Editor',
   data() {
     return {
-      runIframe: null,
-      runIframeHeight: 200,
       activeTab: "js",
       editorData: {
         js: {
@@ -53,21 +51,6 @@ export default {
     // this.newIframe();
   },
   methods: {
-    run() {
-      const scr = "script";
-      const css = "style";
-      const code = this.runIframe.contentWindow.document;
-
-      code.open();
-      code.writeln(
-        `${this.getLang("html")} \n <${css}>\n ${this.getLang(
-          "css"
-        )} \n </${css}> \n <${scr}> \n ${this.getLang("js")} \n </${scr}>`
-      );
-      code.close();
-      // eslint-disable-next-line
-      fusionDesign.scroll.to(0);
-    },
     changeTab(tab) {
       const currentState = this.monacoJSEditor.saveViewState();
       const currentModel = this.monacoJSEditor.getModel();
@@ -120,6 +103,5 @@ export default {
       height: 300px;
       border-radius: 4px;
       overflow: hidden;
-
 }
 </style>
