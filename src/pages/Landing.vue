@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+    <h1>FusionCharts PlayGround</h1>
+    <ControlPanel />
     <IframeComp class="mb-1" />
     <div class="container-tabs mb-1">
       <ul class="container-tabs-nav">
@@ -12,6 +14,7 @@
         <button class="btn btn-primary-grad btn-sm">RUN</button>
       </ul>
     </div>
+
     <Editor ref="editor" />
   </div>
 </template>
@@ -19,10 +22,12 @@
 <script>
 import Editor from "@/components/Editor.vue";
 import IframeComp from "@/components/Screen.vue";
+import ControlPanel from "@/components/ControlPanel.vue";
+
 
 export default {
   name: "Playground",
-  components: { Editor, IframeComp },
+  components: { Editor, IframeComp, ControlPanel },
   data () {
     return {
       activeTab: 'js',
@@ -34,7 +39,8 @@ export default {
       this.activeTab = lang;
       this.$refs.editor.changeTab(lang);
     }
-  }
+  },
+
 };
 </script>
 
@@ -50,6 +56,10 @@ export default {
   margin: 0 auto;
   height: 400px;
   background-color: inherit;
+
+  h1{
+    color: $primary-dark;
+  }
 
   &-tabs {
     display: flex;

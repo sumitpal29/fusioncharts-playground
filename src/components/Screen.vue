@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       runIframe: null,
-      runIframeHeight: 200
+      runIframeHeight: 250
     };
   },
   mounted() {
@@ -56,7 +56,12 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/main.scss";
+
 .container-iframe{
   width: 100%;
+  background-color: $light;
+  overflow: hidden;
+  border-radius: 4px;
 }
 </style>

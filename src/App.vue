@@ -19,7 +19,7 @@ html{
 }
 
 #app {
-  margin-top: 60px;
+  margin-top: 20px;
   background-color: $color3;
   color: #fff;
 }
