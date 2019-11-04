@@ -3,7 +3,7 @@ const state = {
   product: {
     selectedChartCategory: '',
     selectedChartType: '',
-    version: '',
+    version: 'latest',
   },
   categories: {
     single_series: {
@@ -491,9 +491,20 @@ const getters = {
   GETCATEGORYCHARTS: state => category => category ? state.categories[category].charts : []
 }
 // actions
-const actions = {}
+const actions = {
+  UPDATE_PRODUCT: (context, productData) => {
+    context.dispatch('UPDATE_PRODUCT', productData);
+  }
+}
 // mutations
-const mutations = {}
+const mutations = {
+  UPDATE_PRODUCT: (state, data) => {
+    console.log('data', data);
+    state.product.selectedChartCategory = data.chartCategory;
+    state.product.selectedChartType = data.chartType;
+    state.product.selectedFCVersion = data.selectedFCVersion;
+  }
+}
 
 export default {
   namespaced: true,

@@ -10,6 +10,7 @@
         </li>
       </ul>
       <ul>
+        <button class="btn btn-outline-primary btn-sm mr-1">export</button>
         <button class="btn btn-outline-primary btn-sm mr-1">copy code</button>
         <button class="btn btn-primary-grad btn-sm">RUN</button>
       </ul>

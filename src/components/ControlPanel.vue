@@ -15,20 +15,22 @@
     <!-- modal -->
     <modal class="chart-conf-modal" :scrollable="true" name="chart-configuration">
       <div class="card">
-        <div class="card-header">
-          Chart Configuration
-          <i class="fc_close" @click="$modal.hide('chart-configuration')" />
+        <div class="card-header bold pb-0">
+          Select Chart Configuration
+          <i
+            class="fc_close"
+            @click="$modal.hide('chart-configuration')"
+          />
         </div>
         <div class="card-body">
-          <select v-model="chartCategory" class="select-css ml-1">
+          <select v-model="chartCategory" class="select-css">
             <option>Select Categories</option>
             <option
-              :value="item"
+              :value="item.value"
               v-for="(item, index) in categoriesList"
               :key="index"
             >{{item.display}}</option>
           </select>
-
           <select v-model="chartType" class="select-css ml-1">
             <option>Selct Chart Type</option>
             <option
@@ -37,6 +39,22 @@
               :key="index"
             >{{item.display}}</option>
           </select>
+        </div>
+        <div class="card-header bold pb-0 pt-0">
+          Select FusionCharts version
+          <i
+            class="fc_close"
+            @click="$modal.hide('chart-configuration')"
+          />
+        </div>
+        <div class="card-body">
+          <select v-model="selectedFCVersion" class="select-css">
+            <option>Select version</option>
+            <option :value="item" v-for="(item, index) in versionList" :key="index">{{item}}</option>
+          </select>
+        </div>
+        <div class="card-footer text-right">
+          <div @click="saveConf" class="btn btn-secondary-grad btn-sm">Done</div>
         </div>
       </div>
     </modal>
@@ -49,12 +67,12 @@ import { mapGetters } from "vuex";
 export default {
   name: "ControlPanel",
   computed: {
-    ...mapGetters(['product/GETCATEGORY', 'product/GETCATEGORYCHARTS']),
-    categoriesList () {
-      return this['product/GETCATEGORY'];
+    ...mapGetters(["product/GETCATEGORY", "product/GETCATEGORYCHARTS"]),
+    categoriesList() {
+      return this["product/GETCATEGORY"];
     },
-    getCategoryCharts () {
-      return this['product/GETCATEGORYCHARTS'](this.chartCategory.value)
+    getCategoryCharts() {
+      return this["product/GETCATEGORYCHARTS"](this.chartCategory);
     }
   },
 
@@ -66,21 +84,41 @@ export default {
       supportedLanguages: ["plainJS", "vue", "react"],
       showModal: false,
       chartType: "",
-      chartCategory: ""
+      chartCategory: "",
+      selectedFCVersion: "latest",
+      versionList: [
+        "latest",
+        "develop",
+        "3.14.1",
+        "3.14.0",
+        "3.14.0-sr.1",
+        "3.13.5"
+      ]
     };
   },
-  mounted () {
+  mounted() {
     console.log(this.chartCategory, this.$store);
   },
   watch: {
     chartCategory(val) {
-      console.log(val)
-      if(val.value && this.noChartConf) {
+      if (val.value && this.noChartConf) {
         this.noChartConf = false;
       }
     }
   },
-  methods: {}
+  methods: {
+    saveConf() {
+      this.$modal.hide("chart-configuration");
+      const conf = {
+        chartType: this.chartType,
+        chartCategory: this.chartCategory,
+        selectedFCVersion: this.selectedFCVersion
+      }
+      // this.$emit("configuration-changed", conf);
+      // this.$store.dispatch('product/UPDATE_PRODUCT',conf)
+      console.log('configuration Changed', this, conf);
+    }
+  }
 };
 </script>
 
@@ -89,15 +127,15 @@ export default {
 
 .control-panel {
   &-first {
-    .information-container{
+    .information-container {
       display: flex;
       align-items: baseline;
 
-      h2{
+      h2 {
         font-size: 18px;
         color: $light;
       }
-      h3{
+      h3 {
         font-size: 15px;
         color: $light;
         margin-left: 10px;
