@@ -67,12 +67,15 @@ import { mapGetters } from "vuex";
 export default {
   name: "ControlPanel",
   computed: {
-    ...mapGetters(["product/GETCATEGORY", "product/GETCATEGORYCHARTS"]),
+    ...mapGetters(["product/GETCATEGORY", "product/GETCATEGORYCHARTS", "product/GETDEFAULTEXAMPLE"]),
     categoriesList() {
       return this["product/GETCATEGORY"];
     },
     getCategoryCharts() {
       return this["product/GETCATEGORYCHARTS"](this.chartCategory);
+    },
+    getDefaultExample() {
+      return this["product/GETDEFAULTEXAMPLE"](this.chartCategory);
     }
   },
 
@@ -115,8 +118,8 @@ export default {
         selectedFCVersion: this.selectedFCVersion
       }
       // this.$emit("configuration-changed", conf);
-      // this.$store.dispatch('product/UPDATE_PRODUCT',conf)
-      console.log('configuration Changed', this, conf);
+      this.$store.dispatch('product/UPDATE_PRODUCT',conf, {root:true});
+      console.log('configuration Changed', this, conf, this.getDefaultExample);
     }
   }
 };

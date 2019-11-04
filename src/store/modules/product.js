@@ -1,3 +1,5 @@
+import examples from './examples.js';
+
 // initial state
 const state = {
   product: {
@@ -478,7 +480,8 @@ const state = {
         }
       ]
     }
-  }
+  },
+  examples,
 };
 // getters
 const getters = {
@@ -488,18 +491,18 @@ const getters = {
       display: state.categories[key].display
     }));
   },
-  GETCATEGORYCHARTS: state => category => category ? state.categories[category].charts : []
+  GETCATEGORYCHARTS: state => category => category ? state.categories[category].charts : [],
+  GETDEFAULTEXAMPLE: state => type => state.examples[type] || null,
 }
 // actions
 const actions = {
   UPDATE_PRODUCT: (context, productData) => {
-    context.dispatch('UPDATE_PRODUCT', productData);
+    context.commit('SET_UPDATE_PRODUCT', productData);
   }
 }
 // mutations
 const mutations = {
-  UPDATE_PRODUCT: (state, data) => {
-    console.log('data', data);
+  SET_UPDATE_PRODUCT: (state, data) => {
     state.product.selectedChartCategory = data.chartCategory;
     state.product.selectedChartType = data.chartType;
     state.product.selectedFCVersion = data.selectedFCVersion;
